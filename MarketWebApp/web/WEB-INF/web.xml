@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>UsersServlet</servlet-name>
+        <servlet-class>servlets.UsersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>servlets.UpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FinishOrderServlet</servlet-name>
+        <servlet-class>servlets.FinishOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <servlet-class>servlets.FeedbackServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrdersServlet</servlet-name>
+        <servlet-class>servlets.OrdersServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewStoreServlet</servlet-name>
+        <servlet-class>servlets.NewStoreServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OrdersServlet</servlet-name>
+        <url-pattern>/pages/zone/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/pages/zone/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewStoreServlet</servlet-name>
+        <url-pattern>/pages/zone/newStore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinishOrderServlet</servlet-name>
+        <url-pattern>/pages/zone/orderFinish</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackServlet</servlet-name>
+        <url-pattern>/pages/zone/feedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsersServlet</servlet-name>
+        <url-pattern>/pages/main/user</url-pattern>
+    </servlet-mapping>
+</web-app>

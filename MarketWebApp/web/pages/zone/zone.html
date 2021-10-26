@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#" />
+    <script src="../../resource/jquery-2.0.3.min.js"></script>
+    <script src="../../resource/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../resource/bootstrap.css">
+    <link href="../../resource/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="../../resource/bootstrap-toggle.min.js"></script>
+    <link rel="stylesheet" href="zone.css">
+    <script src="../utils/Utils.js"></script>
+    <script src="../../resource/jsonObj.js"></script>
+    <script src="zone.js"></script>
+    <title>Main</title>
+</head>
+<body>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+    <img class="img-responsive image-logo" src="../../resource/images/sdm2.png" width="242" height="68">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="nav-link header">Hello</span>
+            </li>
+            <li class="nav-item active">
+                <b class="nav-link header" id="customer-header"></b>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header" id="zone-headline"></span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header">&emsp; Balance : </span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header" id="balance"> 0 $</span>
+            </li>
+        </ul>
+
+        <!-- update button lookalike -->
+        <div class="text-center updates">
+            <a class="btn updates-header btn-success my-2 my-sm-0 btn-default"> UPDATES : </a>
+        </div>
+
+        <!-- updates -->
+        <div class="updates-cont updates">
+            <marquee class="update-text" behavior="scroll" direction="left">|</marquee>
+        </div>
+
+        <!-- Back button -->
+        <div class="text-center" id="back">
+            <a href='../main/main.html' class="btn btn-outline-success btn-default my-2 my-sm-0">BACK</a>
+        </div>
+    </div>
+</nav>
+
+<!--    body    -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 bhoechie-tab-container">
+            <div class="row">
+            <div class="col-lg-1 bhoechie-tab-menu">
+                <div class="list-group">
+                    <a href="#" class="list-group-item active text-center">
+                        <h4 class="glyphicon glyphicon-plane">Stores</h4>
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-road">Products</h4>
+                    </a>
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-home">Orders</h4>
+                    </a>
+                    <a href="#" class="list-group-item text-center buyer">
+                        <h4 class="glyphicon glyphicon-cutlery">New order</h4>
+                    </a>
+                    <a href="#" class="list-group-item text-center seller">
+                        <h4 class="glyphicon glyphicon-cutlery">Feedbacks</h4>
+                    </a>
+                    <a href="#" class="list-group-item text-center seller">
+                        <h4 class="glyphicon glyphicon-cutlery">New store</h4>
+                    </a>
+                    <div class="row footer list-group-item"></div>
+                </div>
+            </div>
+            <div class="col-lg-11 bhoechie-tab container-fluid check">
+                <!-- Store section -->
+                <div class="bhoechie-tab-content active">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon  glyphicon-cutlery" style="color:#55518a">Stores</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Store</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Coordinates</th>
+                                        <th scope="col">Orders</th>
+                                        <th scope="col">Products income</th>
+                                        <th scope="col">PPK</th>
+                                        <th scope="col">Delivery income</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="store-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Pick a store to see the products</h4>
+                            <select class="inputGroupSelectStore" onchange="addStoreProducts(this.value)">
+                                <option selected>Choose store</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Total sold</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="store-products-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+                <!-- Products section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Stores selling</th>
+                                        <th scope="col">Average price</th>
+                                        <th scope="col">Total sold</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="products-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+
+                        </div>
+                    </center>
+                </div>
+                <!-- Order section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Orders</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark orders-table">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Number of stores</th>
+                                        <th scope="col">Number of products</th>
+                                        <th scope="col">Products price</th>
+                                        <th scope="col">Delivery price</th>
+                                        <th scope="col">Total price</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="orders-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Pick order to see its details</h4>
+                            <select class="inputGroupSelectOrder" onchange="fillOrdersDetails(this.value)">
+                                <option selected>Choose order</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Total Price</th>
+                                        <th scope="col">Bought from sale</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="order-product-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+
+                <!-- make order section-->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <form id="regForm" action="">
+                            <h2  class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">New order</h2>
+                            <!-- One "tab" for each step in the form: -->
+                            <!-- tab for initial details -->
+                            <div class="tab">
+                                <h5 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">
+                                    Please enter your location and delivery date
+                                </h5>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                    <h4 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Location :</h4>
+                                    <input class="col-lg-2 check-price" id="location-input-x" min="1" max="50" type="number" placeholder="x">
+                                    <input class="col-lg-2 check-price" id="location-input-y" min="1" max="50" type="number" placeholder="y">
+                                    <h5 class="text-lg-center glyphicon glyphicon-cutlery" id="error-location" style="color: red"></h5>
+                                </div>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                    <h4 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Date :</h4>
+                                    <input type="date" id="date" class="form-control validate col-lg-2" placeholder="Date">
+                                </div>
+                                <h5 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">
+                                    Select store to buy from or buy from multiple stores
+                                </h5>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                        <div class="btn-group" id="status" data-toggle="buttons">
+                                            <label class="btn btn-default tog btn-on active">
+                                                <input type="radio" value="1" name="multifeatured_module[module_id][status]" id="one-store" onclick="blockStorePick()" checked="checked">One store</label>
+                                            <label class="btn btn-default tog btn-off">
+                                                <input type="radio" value="0" name="multifeatured_module[module_id][status]" id="multiple-stores" onclick="blockStorePick()">Multiple stores</label>
+                                         </div>
+                                    <div class="col-lg-2 ">
+                                        <select class="custom-select check-price" id="inputGroupSelect">
+                                            <option selected>Choose store</option>
+                                        </select>
+                                    </div>
+                                    <h5 class="text-lg-center glyphicon glyphicon-cutlery" id="error-store" style="color: red"></h5>
+                                    <h5 class="text-lg-center glyphicon glyphicon-cutlery" id="delivery-price" style="color:#55518a"></h5>
+                                </div>
+                            </div>
+
+                            <!-- add products to cart tab-->
+                            <div class="tab">
+                                <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Choose products</h1>
+                                <h5 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Press the ADD PRODUCT button to add product to cart</h5>
+                                <div class="row row-order">
+                                    <div class="table-responsive scrollbar scrollbar-primary col-lg-9">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr id="order-products">
+                                                <th scope="col">#</th>
+                                                <th scope="col" id="insert-price">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Add product</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="order-products-area">
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="table-responsive scrollbar scrollbar-primary col-lg-3" id="cart-button-cont">
+                                        <h5 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Cart</h5>
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Quantity</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="cart-area">
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- show dynamic order tab-->
+                            <div class="tab">
+                                <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Dynamic order details</h1>
+                                <div class="col-lg-12">
+                                    <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Stores</h1>
+                                    <div class="table-responsive scrollbar scrollbar-primary">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Store</th>
+                                                <th scope="col">Coordinates</th>
+                                                <th scope="col">distance</th>
+                                                <th scope="col">PPK</th>
+                                                <th scope="col">Delivery price</th>
+                                                <th scope="col">Products types</th>
+                                                <th scope="col">Products price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="store-area-order">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- sales tab -->
+                            <div class="tab">
+                                <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Sales</h1>
+                                <h5 class="text-lg-center glyphicon glyphicon-cutlery sale-message" style="color:#55518a"></h5>
+                                <div class="card-columns" id="sale-container">
+                                </div>
+                            </div>
+
+                            <!-- order summary tab -->
+                            <div class="tab">
+                                <div class="col-lg-12">
+                                    <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Order summary</h1>
+                                    <div class="table-responsive scrollbar scrollbar-primary">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Store</th>
+                                                <th scope="col">PPK</th>
+                                                <th scope="col">Distance</th>
+                                                <th scope="col">Delivery price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="summary-stores">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h4 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Pick a store to see the products</h4>
+                                    <select class="inputGroupSelectSummary" onchange="addSummaryProducts(this.value)">
+                                        <option selected>Choose store</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h1 class="text-lg-center glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                                    <div class="table-responsive scrollbar scrollbar-primary">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Pricing</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Total Price</th>
+                                                <th scope="col">Bought from sale</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="summary-products">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <h4 class="text-lg-center glyphicon  glyphicon-cutlery" style="color:#55518a">Products price :
+                                    <span class="glyphicon glyphicon-cutlery" id="products-price-summary" style="color:#55518a"></span>
+                                    <span class="glyphicon glyphicon-cutlery" style="color:#55518a">&nbsp;Delivery price : </span>
+                                    <span class="glyphicon glyphicon-cutlery" id="delivery-price-summary" style="color:#55518a"></span>
+                                    <span class="glyphicon glyphicon-cutlery" style="color:#55518a">&nbsp;Total price :</span>
+                                    <span class="glyphicon glyphicon-cutlery" id="total-price-summary" style="color:#55518a"></span>
+                                </h4>
+                            </div>
+                            <div class="tab">
+                                <div class="col-lg-12">
+                                    <h4 class="text-lg-center glyphicon  glyphicon-cutlery" style="color:#55518a">Order was made!!!</h4>
+                                    <h4 class="text-lg-center glyphicon  glyphicon-cutlery" style="color:#55518a">you can give feedbacks : </h4>
+                                    <!-- choose store to give feedback -->
+                                    <div class="col-lg-12">
+                                        <select class="inputGroupFeedbackStore">
+                                            <option selected>Choose store</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- stars rating -->
+                                <div class="col-lg-12">
+                                    <div class="rate">
+                                        <input type="radio" id="star5" name="rate" value="5" />
+                                        <label for="star5" title="5 stars">5 stars</label>
+                                        <input type="radio" id="star4" name="rate" value="4" />
+                                        <label for="star4" title="4 stars">4 stars</label>
+                                        <input type="radio" id="star3" name="rate" value="3" />
+                                        <label for="star3" title="3 stars">3 stars</label>
+                                        <input type="radio" id="star2" name="rate" value="2" />
+                                        <label for="star2" title="2 stars">2 stars</label>
+                                        <input type="radio" id="star1" name="rate" value="1" />
+                                        <label for="star1" title="1 stars">1 star</label>
+                                    </div>
+                                </div>
+                                <!--- text area -->
+                                <div class="col-lg-12">
+                                    <textarea id="comment" rows="4" cols="50"></textarea>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h4 id="feedback-message" class="text-lg-center text-danger"></h4>
+                                    <h4 id="feedback-sent-message" class="text-lg-center text-success"></h4>
+                                    <button type="button" onclick="ajaxSendFeedback()">Send feedback</button>
+                                </div>
+                            </div>
+
+                            <div style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">CANCEL</button>
+                                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                </div>
+                            </div>
+
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div style="text-align:center;margin-top:40px;">
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                                <span class="step"></span>
+                            </div>
+                        </form>
+                    </center>
+                </div>
+
+                <!-- Feedbacks section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon  glyphicon-cutlery" style="color:#55518a">Feedbacks</h1>
+                            <div class="card panels-card feedback-panel row">
+                            </div>
+                        </div>
+                    </center>
+                </div>
+
+                <!-- Add new store -->
+                <div class="bhoechie-tab-content">
+                    <form class="container-fluid col-lg-12 text-lg-center">
+                        <br>
+                        <h2 class="glyphicon  glyphicon-cutlery" style="color:#55518a">Add new store</h2>
+                        <h4 class="glyphicon  glyphicon-cutlery" style="color:#55518a">please enter store details</h4><br>
+                        <label class="glyphicon  glyphicon-cutlery" style="color:#55518a" for="store-name-input">Store name:</label>
+                        <input type="text" id="store-name-input" class="text-input"/>
+                        <label class="text-danger" id="store-name-error"></label><br><br>
+                        <label class="glyphicon  glyphicon-cutlery" style="color:#55518a" for="location-x-input">Location:&nbsp; x</label>
+                        <input type="number" id="location-x-input" maxlength="2" max="50" min="1" step="1" class="numbers-input">
+                        <label class="glyphicon  glyphicon-cutlery" style="color:#55518a"for="location-y-input">y</label>
+                        <input type="number" id="location-y-input" maxlength="2" max="50" min="1" step="1" class="numbers-input">
+                        <label class="text-danger" id="location-error"></label><br><br>
+                        <label class="glyphicon  glyphicon-cutlery" style="color:#55518a" for="ppk-input">PPK</label>
+                        <input type="number" id="ppk-input" class="numbers-input" min="0" value="0"><br><br>
+                        <h4 class="glyphicon  glyphicon-cutlery" style="color:#55518a">Please select the products the store will sell and enter their prices</h4>
+                        <div class="row">
+                        <div class="col-lg-10">
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Average price</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Select product</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="choose-products-to-store-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 add-store-cont">
+                            <label class="text-danger" id="products-error"></label>
+                            <button type="button" id="add-store-button" onclick="addNewStore()">Add store</button>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#" />
+    <script src="../../resource/jquery-2.0.3.min.js"></script>
+    <script src="../../resource/context-path-helper.js"></script>
+    <script src="../../resource/bootstrap.js"></script>
+    <link rel="stylesheet" href="../../resource/bootstrap.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+    <title>Main</title>
+</head>
+
+<!-- The Modal -->
+<div class="modal fade" id="orangeModalSubscription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-notify modal-warning" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header text-center">
+                <h4 class="modal-title white-text w-100 font-weight-bold py-2">Transaction</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+            <!--Body-->
+            <div class="modal-body">
+                <div class="md-form mb-5">
+                    <i class="fas fa-user prefix grey-text"></i>
+                    <input type="number" step="0.01" min="0.01" id="credit" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="credit">Amount to charge</label>
+                </div>
+
+                <div class="md-form">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input type="date" id="date" class="form-control validate">
+                    <label data-error="wrong" data-success="right" for="date">Date</label>
+                </div>
+            </div>
+
+            <!--Footer-->
+            <div class="modal-footer justify-content-center">
+                <a type="button" class="btn btn-outline-warning waves-effect" id="load-money-button"> Send <i class="fas fa-paper-plane-o ml-1"></i></a>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- End of modal-->
+
+<body>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+    <img class="img-responsive image-logo" src="../../resource/images/sdm2.png" width="242" height="68">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="nav-link header">Hello</span>
+            </li>
+            <li class="nav-item active">
+                <b class="nav-link header" id="customer-header"></b>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header">, welcome to SDMarket.&emsp; Balance : </span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header" id="balance"> 0 $</span>
+            </li>
+        </ul>
+
+        <!-- update button lookalike -->
+        <div class="text-center updates">
+            <a class="btn updates-header btn-success my-2 my-sm-0 btn-default"> UPDATES : </a>
+        </div>
+
+        <!-- updates -->
+        <div class="updates-cont updates">
+            <marquee class="update-text" behavior="scroll" direction="left">|</marquee>
+        </div>
+
+        <!-- go to zone button -->
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-success btn-default my-2 my-sm-0" id="zone-button"> GO TO ZONE </button>
+            </div>
+            <select class="custom-select" id="inputGroupSelect">
+                <option selected>Choose zone..</option>
+            </select>
+        </div>
+
+        <!-- Add money button -->
+        <div class="text-center" id="add-money" style="display: none">
+            <a href='' class="btn btn-outline-success btn-default my-2 my-sm-0" data-toggle="modal" data-target="#orangeModalSubscription"> ADD MONEY </a>
+        </div>
+
+        <!-- Add zone form -->
+        <form class="form-inline my-2 my-lg-0" id="uploadForm" enctype="multipart/form-data" method="POST">
+                <label class="btn btn-outline-success my-2 my-sm-0 buyer-seller"  for="file-input"> ADD ZONE </label>
+                <input id="file-input" type="file" name="file" style="display: none;" accept=".xml" multiple/>
+        </form>
+    </div>
+</nav>
+
+<!-- Wallet -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="text-lg-center">Wallet</h1>
+            <div class="table-responsive scrollbar scrollbar-primary">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Transaction type</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Money transferred</th>
+                        <th scope="col">Old Balance</th>
+                        <th scope="col">New balance</th>
+                    </tr>
+                    </thead>
+                    <tbody class="transaction-area" id="lasri">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+     <!-- zones representation -->
+        <div class="col-md-6">
+            <h1 class="text-lg-center">Zones</h1>
+                <div class="table-responsive scrollbar scrollbar-primary">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Products</th>
+                            <th scope="col">Stores</th>
+                            <th scope="col">Orders</th>
+                            <th scope="col">Average order price</th>
+                        </tr>
+                        </thead>
+                        <tbody class="zones-area">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- chat and users -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <h1 class="text-lg-center">Users</h1>
+            <!-- add users here -->
+            <div class="people-nearby">
+                <!-- mb-5 class to extra padding-->
+                    <div class="nearby-user shadow p-3 mb-2 bg-white rounded">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img src="../../resource/images/user.png" alt="user" class="profile-photo-lg">
+                            </div>
+                            <div class="col-md-7">
+                                <h5 class="user-text username">long Username test shai </h5>
+                                <p class="user-text text-muted" id="buyer-seller">Buyer</p>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <!-- chat -->
+        <div class="col-md-9">
+            <h1 class="text-lg-center">CHAT</h1>
+            <div class="card">
+                <div class="card-header">
+                    <form id="send-message" class="send-message-form">
+                        <div class="input-group">
+                            <input id="input-me" type="text" name="messages" class="form-control input-sm" placeholder="Type your message here..." />
+                            <span class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Send <i class="fas fa-airplane"></i></button>
+                        </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body messages-box">
+                    <ul class="list-unstyled messages-list">
+                        <li class="messages-you clearfix" id="massage">
+                        <span class="message-img img-circle">
+                            <img src="../../resource/images/user.png" height="50" width="50" alt="User Avatar" class="avatar-sm border rounded-circle">
+                        </span>
+                            <div class="message-body clearfix">
+                                <div class="message-header">
+                                    <strong class="messages-title" id="chat-username">SDManager</strong>
+                                    <small class="time-messages text-muted">
+                                        <span class="fas fa-time" id="time"></span>
+                                    </small>
+                                </div>
+                                <p class="messages-p">
+                                    Welcome to SDMarket. you can chat with other users!
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

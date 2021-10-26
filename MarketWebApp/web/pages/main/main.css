@@ -1,0 +1,338 @@
+
+html {
+    background-color: #39ace7;
+}
+
+.header {
+    font-size: 22px;
+}
+
+[type=button]:hover {
+    background-color: #39ace7;
+}
+
+[class=my-button] {
+    background-color: #56baed;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+
+    /*margin: 5px 20px 40px 20px;*/
+    /*padding: 5px 55px;*/
+
+    margin-right: 50px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    right: 0;
+}
+
+body {
+    background-color: #39ace7;
+    padding-bottom: 20px;
+}
+
+/* Modal */
+
+.modal-open .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.fade {
+    transition: opacity .15s linear;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.white-text, .dropdown .dropdown-menu .dropdown-item:hover, .dropdown .dropdown-menu .dropdown-item:active, .dropup .dropdown-menu .dropdown-item:hover, .dropup .dropdown-menu .dropdown-item:active, .dropleft .dropdown-menu .dropdown-item:hover, .dropleft .dropdown-menu .dropdown-item:active, .dropright .dropdown-menu .dropdown-item:hover, .dropright .dropdown-menu .dropdown-item:active, .side-nav, .side-nav .search-form .form-control, .side-nav2, .side-nav2 .search-form .form-control, .md-toast-message a, .md-toast-message label, .md-toast-close-button, #toast-container>div, .clockpicker_container.clockpicker .picker__box .clockpicker-am-pm-block .active, .picker__list-item--selected, .picker__list-item--selected:hover, .picker--focused .picker__list-item--selected, .picker--time .picker__button--clear:hover, .picker--time .picker__button--clear:focus, .picker--time .picker__button--clear:hover::before, .picker--time .picker__button--clear:focus::before, .picker__date-display, .picker__date-display .clockpicker-display .clockpicker-display-column .clockpicker-span-hours.text-primary, .picker__date-display .clockpicker-display .clockpicker-display-column .clockpicker-span-minutes.text-primary, .picker__date-display .clockpicker-display .clockpicker-display-column #click-am.text-primary, .picker__date-display .clockpicker-display .clockpicker-display-column #click-pm.text-primary, .clockpicker-display .clockpicker-display-column .clockpicker-span-hours.text-primary, .clockpicker-display .clockpicker-display-column .clockpicker-span-minutes.text-primary, .clockpicker-display .clockpicker-display-column #click-am.text-primary, .clockpicker-display .clockpicker-display-column #click-pm.text-primary, .darktheme .picker__box .picker__date-display .clockpicker-display, .darktheme .picker__box .picker__date-display .clockpicker-display .clockpicker-span-am-pm, .darktheme .picker__box .picker__calendar-container .clockpicker-plate .clockpicker-tick, .darktheme .picker__box .picker__footer button, .picker__box .picker__header .picker__date-display, .picker__box .picker__table .picker__day--outfocus, .picker__box .picker__table .picker__day--selected, .picker__box .picker__table .picker__day--selected:hover, .picker__box .picker__table .picker--focused {
+    color: #fff !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+.pb-2, .py-2 {
+    padding-bottom: .5rem !important;
+}
+.pt-2, .py-2 {
+    padding-top: .5rem !important;
+}
+.w-100 {
+    width: 100% !important;
+}
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+h4, .h4 {
+    font-size: 1.5rem;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.modal-dialog.modal-notify .close {
+    opacity: 1;
+}
+
+.modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+
+button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+    cursor: pointer;
+}
+
+button.close {
+    background-color: transparent;
+    border: 0;
+}
+
+.close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-notify .modal-header {
+    border-radius: 3px 3px 0 0;
+}
+.modal-notify .modal-content {
+    border-radius: 3px;
+}
+
+.modal-dialog.modal-notify.modal-warning .modal-header {
+    background-color: #fb3;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.modal-header {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.modal-content {
+    pointer-events: auto;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.modal-notify .modal-header {
+    border-radius: 3px 3px 0 0;
+}
+
+.modal-dialog .modal-content .modal-header {
+    border-top-left-radius: .125rem;
+    border-top-right-radius: .125rem;
+}
+
+.modal-dialog.modal-notify .modal-header {
+    border: 0;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+/* users list*/
+
+.people-nearby{
+    max-height: 32rem;
+    overflow-y: auto;
+    top: 0; right: 0; bottom: 0; left: 0;
+    padding-right: 10px;
+
+    /*make scroller*/
+    /*overflow: auto;*/
+}
+
+img.profile-photo-lg{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.user-text {
+    padding-left: 10px;
+}
+
+.username{
+    color: #007bff;
+}
+
+/* chat */
+
+.unread {
+    cursor: pointer;
+    background-color: #f4f4f4;
+}
+
+.messages-box {
+    max-height: 28rem;
+    overflow: auto;
+}
+
+.online-circle {
+    border-radius: 5rem;
+    width: 5rem;
+    height: 5rem;
+}
+
+.messages-title {
+    float: right;
+    margin: 0px 5px;
+}
+
+.message-img {
+    float: right;
+    margin: 0px 5px;
+}
+
+.message-header {
+    text-align: right;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.text-editor {
+    min-height: 18rem;
+}
+
+.messages-list li.messages-you .messages-title {
+    float: left;
+}
+
+.messages-list li.messages-you .message-img {
+    float: left;
+}
+
+.messages-list li.messages-you p {
+    float: left;
+    text-align: left;
+}
+
+.messages-list li.messages-you .message-header {
+    text-align: left;
+}
+
+.table-responsive{
+    background-color: white;
+    max-height: 450px;
+}
+
+.table {
+    margin-bottom: 0; !important;
+}
+
+.scrollbar-primary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5; }
+
+.scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #343a40; }
+
+
+.messages-list li p {
+    max-width: 60%;
+    padding: 5px;
+    border: #e6e7e9 1px solid;
+}
+
+.messages-list li.messages-me p {
+    float: right;
+}
+
+.ql-editor p {
+    font-size: 1rem;
+}
+
+/* select */
+.input-group {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Updates */
+.update-text{
+    font-size: 1.3rem;
+    color: white;
+}
+
+.updates-cont{
+    border-radius: 0.25rem;
+    width: 500px;
+    border: 1px solid;
+    border-color: #28a745;
+    margin-right: 10px;
+}
+
+.updates-header{
+    cursor: text; !important
+}

@@ -1,0 +1,601 @@
+var userName;
+var userType;
+var currentTab = 0
+var zoneOwner;
+var zoneSelected;
+var buyerSeller;
+var messageText = "message="
+var usersTime = 2000;
+var stores;
+var products;
+var userCart;
+
+function setUserDetails() {
+    setTimeout(appendUserDetails, usersTime);
+}
+
+
+function getProduct(serialNumber) {
+    var i;
+    for (i = 0; i < products.length; i++) {
+        if (products[i].SERIAL_NUMBER === parseInt(serialNumber)) {
+            return products[i];
+        }
+    }
+    return NaN;}
+
+function getStore(serialNumber){
+    var i;
+    for (i = 0; i < stores.length; i++) {
+        if (stores[i].SERIAL_NUMBER === parseInt(serialNumber)) {
+            return stores[i];
+        }
+    }
+    return NaN;
+}
+
+function onSuccessUserDetails(customer) {
+    // set name on header
+    $("#customer-header").text(customer.NAME);
+
+    // save data
+    userName = customer.NAME;
+    userType = customer.TYPE;
+    zoneSelected = sessionStorage.getItem('zone');
+
+    // get user orders - after we got the zone
+    appendUserOrders();
+
+    // set balance on header
+    $("#balance").text(numberWithCommas(customer.WALLET.balance.toFixed(2)) + ' $');
+
+    // set other data
+    setAllData();
+}
+
+function appendUserDetails() {
+    $.ajax({
+        type: "GET",
+        url: "../main/user",
+        dataType: 'json',
+        success: function (customer) {
+            onSuccessUserDetails(customer);
+        },
+        error: function () {
+            console.error("Failed to submit user logged in");
+        }
+    });
+}
+
+$(document).ready(function() {
+    $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
+});
+
+function setTabs() {
+    buyerSeller = sessionStorage.getItem('buyerSeller');
+    if (buyerSeller === 'seller') {
+        $('.buyer').attr('style', 'display: none');
+    } else {
+        $('.seller').attr('style', 'display: none');
+    }
+}
+
+// object received from ajax request :
+// public class StoreDTO {
+//     LocationDTO LOCATION = [x,y];
+//     int SERIAL_NUMBER = 1221;
+//     double PPK = 12.12;
+//     String NAME = store name;
+//     double PRODUCTS_INCOME;
+//     double DELIVERY_INCOME;
+//     Map<Integer, SellDTO> ID_TO_SELL = all products store products;
+//     Set<SaleDTO> SALES = all sales;
+//     Set<OrderDTO> ORDERS = all orders;
+function addStore(index, store) {
+    $('.store-area').append('<tr>'
+        + '<th scope="row">' + store.SERIAL_NUMBER + '</th>'
+        + '<td>' + store.NAME + '</td>'
+        + '<td>' + zoneOwner + '</td>'
+        + '<td>' + '[' + store.LOCATION.x + ',' + store.LOCATION.y + ']' + '</td>'
+        + '<td>' + store.ORDERS.length + '</td>'
+        + '<td>' + store.PRODUCTS_INCOME + '</td>'
+        + '<td>' + store.PPK + '</td>'
+        + '<td>' + store.DELIVERY_INCOME + '</td>'
+        + '</tr>');
+
+    $('.custom-select').append('<option value=' + store.SERIAL_NUMBER + '>' + store.NAME + '</option>');
+}
+
+// json object returns from ajax request :
+// public class ProductDTO {
+//     private final String NAME;
+//     private final String PRICING;
+//     private final int SERIAL_NUMBER;
+//     private final double quantitySold;
+//     private final int NUMBER_OF_STORES_SELLING;
+function addProduct(index, product) {
+    $('.products-area').append('<tr>'
+        + '<th scope="row">' + product.SERIAL_NUMBER + '</th>'
+        + '<td>' + product.NAME + '</td>'
+        + '<td>' + product.PRICING.toString() + '</td>'
+        + '<td>' + product.NUMBER_OF_STORES_SELLING + '</td>'
+        + '<td>' + "00" + '</td>'
+        + '<td>' + product.quantitySold.toFixed(2) + '</td>'
+        + '</tr>');
+}
+
+function addZoneName(name) {
+    $('#zone-headline').text(", you are viewing " + name + " zone.");
+}
+
+// get all market data -
+// public static class ZoneDTO{
+//     private final String name;
+//     private final String owner;
+//     private final List<StoreDTO> stores;
+//     private final List<ProductDTO> products;
+// }
+function setData(zone) {
+    zoneOwner = zone.owner;
+    products = zone.products;
+    stores = zone.stores;
+    $.each(zone.stores || [], addStore);
+    $.each(zone.products || [], addProduct);
+    addZoneName(zone.name);
+    checkLocation();
+    storeSelect();
+}
+
+function setAllData() {
+    $.ajax({
+        method: 'GET',
+        url: "../../Main",
+        dataType: 'json',
+        data: "zone=" + zoneSelected,
+        success: function (zone) {
+            setData(zone);
+        },
+        error: function () {
+            console.error("Failed to submit all data");
+        }
+    });
+}
+
+function appendUserOrders() {
+    $.ajax({
+        method: 'GET',
+        url: "order",
+        dataType: 'json',
+        data: "zone=" + zoneSelected,
+        success: function (orders) {
+
+        },
+        error: function () {
+            console.error("Failed to submit all data");
+        }
+    });
+}
+
+function showTab(n) {
+    // This function will display the specified tab of the form...
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    //... and fix the Previous/Next buttons:
+    if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    //... and run a function that will display the correct step indicator:
+    fixStepIndicator(n)
+}
+
+function addProductToCart(serialNumber){
+    // get quantity
+    var quantity = parseFloat($("input[id="+serialNumber+"]").val());
+
+    if(Number.isNaN(quantity) === false && quantity !== 0){
+        // enable -next- button
+        if($('#nextBtn').is(':disabled')){
+            $('#nextBtn').prop('disabled', false);
+        }
+
+        // add item to cart and update badge
+        userCart.addItem(serialNumber, quantity);
+        $('#badge').text(userCart.idToQuantity.size);
+
+        // print message to user
+        var product = getProduct(serialNumber);
+        $('#item-add-label').text(quantity + " " + product.NAME + " added to cart!");
+    }
+}
+
+function checkFirstTabDetails() {
+    if($('#error-location').text() !== 'Location unavailable'){
+        var select = $("#inputGroupSelect option:selected").val();
+        if($('#one-store').is(':checked')){
+            if(select !== 'Choose store'){
+                $('#error-store').text('');
+                return true;
+            } else {
+                $('#error-store').text('No store selected');
+            }
+        } else if ($('#multiple-stores').is(':checked')){
+            return true;
+        }
+    }
+    return false;
+}
+
+function appendSellToOrder(index, sale) {
+    var quantityLine = '<td><input class="col-lg-2 product-quantity" id="' + sale.PRODUCT.SERIAL_NUMBER + '" width="100%" value="1" min="1" step="1" type="number" placeholder="quantity"></td>';
+    if(sale.PRODUCT.PRICING.toString() === 'Weight') {
+        quantityLine = '<td><input class="col-lg-2 product-quantity" id="' + sale.PRODUCT.SERIAL_NUMBER + '" width="100%" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td>'
+    }
+    $('.order-products-area').append('<tr>'
+        + '<th scope="row">' + sale.PRODUCT.SERIAL_NUMBER + '</th>'
+        + '<td>' + sale.PRODUCT.NAME + '</td>'
+        + '<td>' + sale.PRICE + '$</td>'
+        + quantityLine
+        + '<td><button type="button" id="add-product" value="' + sale.PRODUCT.SERIAL_NUMBER + '" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td>'
+        + '</tr>');
+}
+
+function appendProductToOrder(index, product) {
+    var quantityLine = '<td><input class="col-lg-2 product-quantity" id="' + product.SERIAL_NUMBER + '" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td>';
+    if(product.PRICING.toString() === 'Weight'){
+        quantityLine = '<td><input class="col-lg-2 product-quantity" id="' + product.SERIAL_NUMBER + '" width="120" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td>'
+    }
+    $('.order-products-area').append('<tr>'
+        + '<th scope="row">' + product.SERIAL_NUMBER + '</th>'
+        + '<td>' + product.NAME + '</td>'
+        + quantityLine
+        + '<td><button type="button" id="add-product" value="' + product.SERIAL_NUMBER + '" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td>'
+        + '</tr>');
+}
+
+function updateProductsAndCart() {
+    userCart = new JsonObj();
+    var storeSerial= $('#inputGroupSelect').val();
+
+    // add products for user choice
+    $('.order-products-area').empty();
+    if ($('#one-store').is(':checked')) {
+        // add price column
+        $('<th scope="col">' + 'Price' + '</th>').insertAfter($('#insert-price'));
+        var store = getStore(storeSerial);
+        userCart.dynamicOrder = false;
+        userCart.store = storeSerial;
+        // add all stores product
+        $.each(store.ID_TO_SELL || [], appendSellToOrder)
+    } else {
+        // add all products in zone
+        $.each(products || [], appendProductToOrder)
+    }
+
+    $('#nextBtn').prop('disabled', true);
+    userCart.date = $('#date').val();
+    userCart.customer = userName;
+    userCart.zone = zoneSelected;
+    userCart.location.y = $('#location-input-y').val();
+    userCart.location.x = $('#location-input-x').val();
+}
+
+function resetForm() {
+    document.getElementById("regForm").submit();
+    return false;
+}
+
+function setNextTab(x, n) {
+    // Hide the current tab:
+    x[currentTab].style.display = "none";
+    // Increase or decrease the current tab by 1:
+    currentTab = currentTab + n;
+}
+// each store:
+// LocationDTO LOCATION;
+// int SERIAL_NUMBER;
+// double PPK;
+// double PRODUCTS_INCOME;
+// double DELIVERY_INCOME;
+// String NAME;
+// Map<Integer, SellDTO> ID_TO_SELL;
+// Set<SaleDTO> SALES;
+// Set<OrderDTO> ORDERS;
+
+// each order:                          each store :                                each sale:
+// int SERIAL_NUMBER;                          LocationDTO LOCATION;                    String NAME
+// int SUB_ORDER_SERIAL_NUMBER;                int SERIAL_NUMBER;                       BuyDTO BUY--->   double QUANTITY;
+// int NUMBER_OF_PRODUCTS;                     double PPK;                                               int ITEM_ID;
+// double PRODUCTS_PRICE;                      double PRODUCTS_INCOME;
+// String CUSTOMER_NAME;                       String NAME;                             GetDTO GET--->   String operator;
+// LocationDTO CUSTOMER_LOCATION;              Map<Integer, SellDTO> ID_TO_SELL;                         List<OfferDTO> Offer --->  double QUANTITY
+// SalesUsed SALES_USED;                       Set<SaleDTO> SALES;                                                                  int ID
+// StoreDTO STORE;                             Set<OrderDTO> ORDERS;                                                                double EXTRA_COST
+// int STORE_SERIAL_NUMBER;                    DELIVERY_INCOME;
+// Map<Integer, Double> ID_TO_QUANTITY;
+// String DATE;
+// int NUMBER_OF_PRODUCTS_TYPE;
+function addOrder(key, order) {
+    var customerLocation = order.CUSTOMER_LOCATION;
+    var storeLocation = order.STORE.LOCATION;
+    var distance = Location.calculateDistance(customerLocation.x, customerLocation.y, storeLocation.x, storeLocation.y)
+    var deliveryPrice = (distance * order.STORE.PPK).toFixed(2);
+
+    $('.store-area-order').append('<tr>'
+        + '<th scope="row">' + order.STORE.SERIAL_NUMBER + '</th>'
+        + '<td>' + order.STORE.NAME + '</td>'
+        + '<td>' + '[' + storeLocation.x + ',' + storeLocation.y + ']' + '</td>'
+        + '<td>' + distance + '</td>'
+        + '<td>' + order.STORE.PPK + '</td>'
+        + '<td>' + deliveryPrice + '</td>'
+        + '<td>' + order.NUMBER_OF_PRODUCTS_TYPE + '</td>'
+        + '<td>' + order.PRODUCTS_PRICE + '</td>'
+        + '</tr>');
+}
+
+function getOperator(operator) {
+    if(operator === 'ALL-OR-NOTHING'){
+        return 'all or nothing'
+    } else {
+        return 'one of';
+    }
+}
+
+function addSale(key, sale) {
+    var product = getProduct(sale.BUY.ITEM_ID);
+    var operator = getOperator(sale.GET.operator);
+
+    $('#sale-container').append('<div class="nearby-user shadow p-3 mb-2 bg-white rounded ' + key + '">'
+        + '<h5>' + sale.NAME + '</h5>'
+        + '<h6>Because you bought ' + sale.BUY.QUANTITY + ' ' + product.NAME +'</h6>'
+        + '<h6 id="sale-' + key + '">you can get ' + operator + '</h6></div>');
+
+    if(sale.GET.operator !== 'ALL-OR-NOTHING'){
+        $.each(sale.GET.Offer || [], function addRadioButton(index, offer){
+            var product = getProduct(offer.ID);
+            $('#sale-' + key + '').append('<label class="container">'
+                + '<input type="radio" name="radio">'
+                + '<span class="checkmark"></span>'
+                +  offer.QUANTITY + " " + product.NAME + " for extra " + offer.EXTRA_COST + '</label>');
+        });
+        $('#sale-' + key + '').append('<button class="' + key + '" onclick="addSaleToCart(this.class, sale.NAME)">select</button>');
+    } else {
+        $.each(sale.GET.Offer || [], function addRadioButton(index, offer){
+            var product = getProduct(offer.ID);
+            $('#sale-' + key + '').append('<label class="container">'
+                +  offer.QUANTITY + " " + product.NAME + " for extra " + offer.EXTRA_COST + '</label>');
+        });
+        $('#sale-' + key + '').append('<button class="' + key + '" onclick="addSaleToCart()">select</button>');
+    }
+}
+
+// div class to check the check box if needed .
+// sale name to add;
+function addSaleToCart(divClass, saleName){
+    $("div[class*='" + divClass + "']"); //find checked check box;
+
+}
+
+// received from ajax req :     //  MORE INFORMATION ABOVE
+// SalesAndOrders{
+//     Map<SaleDTO, Integer> sales;
+//     List<OrderDTO> orders;
+function orderAjaxRequest() {
+    $.ajax({
+        method: 'POST',
+        url: "order",
+        dataType: 'json',
+        data: {
+            idToQuantity: JSON.stringify(Array.from(userCart.idToQuantity.entries())),
+            cart: JSON.stringify(userCart)
+        },
+        success: function (salesAndOrders) {
+            if(userCart.dynamicOrder === true){
+                $('.store-area-order').empty();
+                $.each(salesAndOrders.orders || [], addOrder);
+            }
+
+            $('#sale-container').empty();
+            $.each(salesAndOrders.sales || [], addSale);
+        },
+        error: function () {
+            console.error("Failed to submit all data");
+        }
+    });
+}
+
+function nextPrev(n) {
+    // This function will figure out which tab to display
+    var x = document.getElementsByClassName("tab");
+
+    //if cancel button was pressed
+    if(n === -1){
+        resetForm();
+    }
+    // Exit the function if any field in the current tab is invalid:
+    if (n == 1 && !validateForm()) return false;
+
+    // valid first tab data
+    if (currentTab === 0) {
+        if (checkFirstTabDetails()) {
+            updateProductsAndCart()
+            setNextTab(x, n);
+        }
+    } else if(currentTab === 1){
+        orderAjaxRequest();
+        if($('#one-store').is(':checked')){  //skip dynamic order details
+            setNextTab(x, (n+1));
+            fixStepIndicator(n);
+        } else {
+            setNextTab(x, n);
+        }
+    } else {
+        // set next tab
+        setNextTab(x, n);
+    }
+
+    // if you have reached the end of the form...
+    if (currentTab >= x.length) {
+        // ... the form gets submitted:
+        document.getElementById("regForm").submit();
+        return false;
+    }
+    // Otherwise, display the correct tab:
+    showTab(currentTab);
+}
+
+function updateDeliveryPrice() {
+    var xVal = $('#location-input-x').val();
+    var yVal = $('#location-input-y').val();
+    var storeSerial;
+    var i;
+
+    if (isInteger(xVal) && isInteger(yVal) && $('#error-location').text() !== 'Location unavailable') {
+        if ($('#inputGroupSelect').val() !== 'Choose store' && $('#one-store').is(':checked')) {
+            storeSerial = $('#inputGroupSelect').val();
+            var store = getStore(storeSerial);
+            printDeliveryPrice(store, parseInt(xVal), parseInt(yVal));
+        } else {
+            $('#delivery-price').text('');
+        }
+    } else {
+        $('#delivery-price').text('');
+    }
+}
+
+function blockStorePick(){
+    if ($('#one-store').is(':checked')) {
+        updateDeliveryPrice();
+        $("#inputGroupSelect").prop('disabled', false);
+    } else {
+        $('#delivery-price').text('');
+        $('#error-store').text('');
+        $("#inputGroupSelect").prop('disabled', true);
+    }
+}
+
+function validateForm() {
+    // This function deals with validation of the form fields
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    // A loop that checks every input field in the current tab:
+    for (i = 0; i < y.length; i++) {
+        // If a field is empty...
+        if (y[i].value == "") {
+            // add an "invalid" class to the field:
+            y[i].className += " invalid";
+            // and set the current valid status to false
+            valid = false;
+        }
+    }
+    // If the valid status is true, mark the step as finished and valid:
+    if (valid) {
+        document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+    // This function removes the "active" class of all steps...
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+    //... and adds the "active" class on the current step:
+    x[n].className += " active";
+}
+
+function checkStoreLocations(xVal, yVal) {
+    var i;
+
+    for (i = 0; i < stores.length; i++) {
+        if (stores[i].LOCATION.x === xVal && stores[i].LOCATION.y === yVal) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function isInteger(num){
+    var numCopy = parseFloat(num);
+    return !isNaN(numCopy) && numCopy == numCopy.toFixed();
+}
+
+function setUpLocation() {
+    var xVal = $('#location-input-x').val();
+    var yVal = $('#location-input-y').val();
+    var isValid = true;
+
+    if(isInteger(xVal) && isInteger(yVal)){
+        isValid = checkStoreLocations(parseInt(xVal), parseInt(yVal));
+    }
+
+    if(isValid === false){
+        $('#error-location').text('Location unavailable');
+    } else {
+        $('#error-location').text('');
+    }
+}
+
+function checkLocation() {
+    $("#location-input-x").on("keyup keydown change",function(event){
+        setUpLocation();
+    });
+
+    $("#location-input-y").on("keyup keydown change",function(event){
+        setUpLocation();
+    });
+}
+
+// class store {
+//     LocationDTO LOCATION = [x,y];
+//     int SERIAL_NUMBER = 1221;
+//     double PPK = 12.12;
+//     String NAME = store name;
+//     double PRODUCTS_INCOME;
+//     double DELIVERY_INCOME;
+//     Map<Integer, SellDTO> ID_TO_SELL = all products store products;
+//     Set<SaleDTO> SALES = all sales;
+//     Set<OrderDTO> ORDERS = all orders;
+function printDeliveryPrice(store, xLocation, yLocation) {
+    $('#delivery-price').text('delivery price : ' +
+        (Location.calculateDistance(xLocation, yLocation, store.LOCATION.x, store.LOCATION.y) * store.PPK).toFixed(2)+ '$');
+    $('#error-store').text('');
+}
+
+
+
+function storeSelect() {
+    $('.check-price').change(function (){
+        updateDeliveryPrice();
+    });
+}
+
+$(function() {
+    // set tabs
+    setTabs();
+
+    // update user details
+    appendUserDetails();
+
+    // date block
+    blockPastDates("date");
+
+    // set make order tabs
+    showTab(currentTab); // Display the current tab
+});
+

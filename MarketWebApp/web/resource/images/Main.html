@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0108)http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&radio=on -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="shortcut icon" href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#">
+    <script src="./Main_files/jquery-2.0.3.min.js.download"></script>
+    <script src="./Main_files/context-path-helper.js.download"></script>
+    <script src="./Main_files/bootstrap.js.download"></script>
+    <link rel="stylesheet" href="./Main_files/bootstrap.css">
+    <link href="./Main_files/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="./Main_files/bootstrap-toggle.min.js.download"></script>
+    <link rel="stylesheet" href="./Main_files/zone.css">
+    <script src="./Main_files/Utils.js.download"></script>
+    <script src="./Main_files/cart.js.download"></script>
+    <script src="./Main_files/zone.js.download"></script>
+    <title>Main</title>
+</head>
+<body style="">
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
+    <img class="img-responsive image-logo" src="./Main_files/sdm2.png" width="242" height="68">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="nav-link header">Hello</span>
+            </li>
+            <li class="nav-item active">
+                <b class="nav-link header" id="customer-header">shaide</b>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header" id="zone-headline">, you are viewing Hasharon zone.</span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header">  Balance : </span>
+            </li>
+            <li class="nav-item active">
+                <span class="nav-link header" id="balance">0.00 $</span>
+            </li>
+        </ul>
+
+        <!-- Add money button -->
+        <div class="text-center" id="add-money">
+            <a href="http://localhost:8080/Market/pages/main/main.html" class="btn btn-outline-success btn-default my-2 my-sm-0">BACK</a>
+        </div>
+    </div>
+</nav>
+
+<!--    body    -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 bhoechie-tab-container">
+            <div class="row">
+            <div class="col-lg-1 bhoechie-tab-menu">
+                <div class="list-group">
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-plane">Stores</h4>
+                    </a>
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-road">Products</h4>
+                    </a>
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center">
+                        <h4 class="glyphicon glyphicon-home">Orders</h4>
+                    </a>
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center buyer active">
+                        <h4 class="glyphicon glyphicon-cutlery">New order</h4>
+                    </a>
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center seller" style="display: none">
+                        <h4 class="glyphicon glyphicon-cutlery">Feedbacks</h4>
+                    </a>
+                    <a href="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on#" class="list-group-item text-center seller" style="display: none">
+                        <h4 class="glyphicon glyphicon-cutlery">New store</h4>
+                    </a>
+                    <div class="row footer list-group-item"></div>
+                </div>
+            </div>
+            <div class="col-lg-11 bhoechie-tab container-fluid check">
+                <!-- Store section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Stores</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Store</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Coordinates</th>
+                                        <th scope="col">Orders</th>
+                                        <th scope="col">Products income</th>
+                                        <th scope="col">PPK</th>
+                                        <th scope="col">Delivery income</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="store-area">
+                                    <tr><th scope="row">1</th><td>Rami</td><td>shai</td><td>[3,4]</td><td>0</td><td>0</td><td>10</td><td>0</td></tr><tr><th scope="row">2</th><td>Hakol beshekel</td><td>shai</td><td>[1,5]</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><th scope="row">3</th><td>Benny Bannana</td><td>shai</td><td>[45,34]</td><td>0</td><td>0</td><td>10</td><td>0</td></tr><tr><th scope="row">4</th><td>Menashe Hagadol</td><td>shai</td><td>[12,35]</td><td>0</td><td>0</td><td>7</td><td>0</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+                            <h4 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Pick a store to see the products</h4>
+                        </div>
+                        <div class="col-lg-10">
+                            <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Store selected :
+                            <span id="store"></span></h5>
+                        </div>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Stores selling</th>
+                                        <th scope="col">Average price</th>
+                                        <th scope="col">Total sold</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="store-products-area">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+                <!-- Products section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <div class="col-lg-10">
+                            <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Products</h1>
+                            <div class="table-responsive scrollbar scrollbar-primary">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Pricing</th>
+                                        <th scope="col">Stores selling</th>
+                                        <th scope="col">Average price</th>
+                                        <th scope="col">Total sold</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="products-area">
+                                    <tr><th scope="row">1</th><td>Toilet Paper</td><td>Product</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">2</th><td>Banana</td><td>Weight</td><td>3</td><td>00</td><td>0.00</td></tr><tr><th scope="row">3</th><td>Lemon</td><td>Weight</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">4</th><td>Pasta</td><td>Product</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">5</th><td>Tomato</td><td>Weight</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">6</th><td>MIlki</td><td>Product</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">7</th><td>Eggs</td><td>Product</td><td>1</td><td>00</td><td>0.00</td></tr><tr><th scope="row">8</th><td>Candle</td><td>Product</td><td>2</td><td>00</td><td>0.00</td></tr><tr><th scope="row">9</th><td>Yellow Cheeze</td><td>Weight</td><td>1</td><td>00</td><td>0.00</td></tr><tr><th scope="row">10</th><td>Yellow Cheeze</td><td>Product</td><td>3</td><td>00</td><td>0.00</td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-10">
+
+                        </div>
+                    </center>
+                </div>
+                <!-- Orderd section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-home" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">Orders</h2>
+                    </center>
+                </div>
+
+                <!-- make order section-->
+                <div class="bhoechie-tab-content active">
+                    <center>
+                        <form id="regForm" action="http://localhost:8080/Market/pages/zone/zone.html?multifeatured_module%5Bmodule_id%5D%5Bstatus%5D=0&amp;radio=on">
+                            <h2 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">New order</h2>
+                            <!-- One "tab" for each step in the form: -->
+                            <!-- tab for initial details -->
+                            <div class="tab" style="display: none;">
+                                <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">
+                                    Please enter your location and delivery date
+                                </h5>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                    <h4 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Location :</h4>
+                                    <input class="col-lg-2 check-price" id="location-input-x" min="1" max="50" type="number" placeholder="x">
+                                    <input class="col-lg-2 check-price" id="location-input-y" min="1" max="50" type="number" placeholder="y">
+                                    <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" id="error-location" style="color: red"></h5>
+                                </div>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                    <h4 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Date :</h4>
+                                    <input type="date" id="date" class="form-control validate col-lg-2" placeholder="Date" min="2020-10-24">
+                                </div>
+                                <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">
+                                    Select store to buy from or buy from multiple stores
+                                </h5>
+                                <div class="row row-order">
+                                    <div class="col-lg-2"></div>
+                                        <div class="btn-group" id="status" data-toggle="buttons">
+                                            <label class="btn btn-default tog btn-on">
+                                                <input type="radio" value="1" name="multifeatured_module[module_id][status]" id="one-store" onclick="blockStorePick()" checked="checked">One store</label>
+                                            <label class="btn btn-default tog btn-off active">
+                                                <input type="radio" value="0" name="multifeatured_module[module_id][status]" id="multiple-stores" onclick="blockStorePick()">Multiple stores</label>
+                                         </div>
+                                    <div class="col-lg-2 ">
+                                        <select class="custom-select check-price" id="inputGroupSelect" disabled="">
+                                            <option selected="">Choose store</option>
+                                        <option value="1">Rami</option><option value="2">Hakol beshekel</option><option value="3">Benny Bannana</option><option value="4">Menashe Hagadol</option></select>
+                                    </div>
+                                    <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" id="error-store" style="color: red"></h5>
+                                    <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" id="delivery-price" style="color:#55518a"></h5>
+                                </div>
+                            </div>
+
+                            <!-- add products to cart tab-->
+                            <div class="tab" style="display: none;">
+                                <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Choose products</h1>
+                                <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Press the ADD PRODUCT button to add product to JsonObj</h5>
+                                <div class="row row-order">
+                                    <div class="table-responsive scrollbar scrollbar-primary col-lg-10">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr id="order-products">
+                                                <th scope="col">#</th>
+                                                <th scope="col" id="insert-price">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Add product</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="order-products-area"><tr><th scope="row">1</th><td>Toilet Paper</td><td><input class="col-lg-2 product-quantity" id="1" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="1" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">2</th><td>Banana</td><td><input class="col-lg-2 product-quantity" id="2" width="120" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="2" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">3</th><td>Lemon</td><td><input class="col-lg-2 product-quantity" id="3" width="120" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="3" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">4</th><td>Pasta</td><td><input class="col-lg-2 product-quantity" id="4" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="4" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">5</th><td>Tomato</td><td><input class="col-lg-2 product-quantity" id="5" width="120" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="5" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">6</th><td>MIlki</td><td><input class="col-lg-2 product-quantity" id="6" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="6" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">7</th><td>Eggs</td><td><input class="col-lg-2 product-quantity" id="7" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="7" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">8</th><td>Candle</td><td><input class="col-lg-2 product-quantity" id="8" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="8" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">9</th><td>Yellow Cheeze</td><td><input class="col-lg-2 product-quantity" id="9" width="120" value="0.1" min="0.1" step="0.1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="9" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr><tr><th scope="row">10</th><td>Yellow Cheeze</td><td><input class="col-lg-2 product-quantity" id="10" width="120" value="1" min="1" step="1" type="number" placeholder="quantity"></td><td><button type="button" id="add-product" value="10" onclick="addProductToCart(this.value)">ADD PRODUCT</button></td></tr></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-2" id="cart-button-cont">
+                                        <h5 id="item-add-label" class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">1 Toilet Paper added to cart!</h5>
+                                        <button class="notification">CART
+                                            <span class="badge" id="badge">1</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- show dynamic order tab-->
+                            <div class="tab" style="display: none;">
+                                <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Dynamic order details</h1>
+                                <div class="col-lg-12">
+                                    <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Stores</h1>
+                                    <div class="table-responsive scrollbar scrollbar-primary">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Store</th>
+                                                <th scope="col">Coordinates</th>
+                                                <th scope="col">distance</th>
+                                                <th scope="col">PPK</th>
+                                                <th scope="col">Delivery price</th>
+                                                <th scope="col">Products types</th>
+                                                <th scope="col">Products price</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="store-area-order"><tr><th scope="row">1</th><td>Rami</td><td>[3,4]</td><td>2.24</td><td>10</td><td>22.40</td><td>1</td><td>30</td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10">
+                                    <h4 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Pick a store to see the products</h4>
+                                </div>
+                                <div class="col-lg-10">
+                                    <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Store selected :
+                                        <span id="store-selected--order"></span></h5>
+                                    <h5 id="delivery-details" class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Delivery details :&gt;</h5>
+                                </div>
+                            </div>
+
+                            <!-- sales tab -->
+                            <div class="tab" style="display: block;">
+                                <h1 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Sales</h1>
+                                <h5 class="text-lg-center glyphicon glyphicon glyphicon-cutlery" style="color:#55518a">Select sale and products</h5>
+                                <div class="container  row-cols-lg-4" id="sale-container"><div class="nearby-user shadow p-3 mb-2 bg-white rounded 0"><h5>YallA BaLaGaN</h5><h6>Because you bought 1 Toilet Paper</h6><h6 id="sale-0">you can get one of<label class="container"><input type="radio" name="radio"><span class="checkmark"></span>1 Toilet Paper for extra 0</label><label class="container"><input type="radio" name="radio"><span class="checkmark"></span>2 Eggs for extra 20</label><button class="0" onclick="addSaleToCart(this.class, sale.NAME)">select</button></h6></div><div class="nearby-user shadow p-3 mb-2 bg-white rounded 1"><h5>YallA BaLaGaN</h5><h6>Because you bought 1 Toilet Paper</h6><h6 id="sale-1">you can get one of<label class="container"><input type="radio" name="radio"><span class="checkmark"></span>1 Toilet Paper for extra 0</label><label class="container"><input type="radio" name="radio"><span class="checkmark"></span>2 Eggs for extra 20</label><button class="1" onclick="addSaleToCart(this.class, sale.NAME)">select</button></h6></div><div class="nearby-user shadow p-3 mb-2 bg-white rounded 2"><h5>YallA BaLaGaN</h5><h6>Because you bought 1 Toilet Paper</h6><h6 id="sale-2">you can get one of<label class="container"><input type="radio" name="radio"><span class="checkmark"></span>1 Toilet Paper for extra 0</label><label class="container"><input type="radio" name="radio"><span class="checkmark"></span>2 Eggs for extra 20</label><button class="2" onclick="addSaleToCart(this.class, sale.NAME)">select</button></h6></div></div>
+                            </div>
+
+                            <div style="overflow:auto;">
+                                <div style="float:right;">
+                                    <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="display: inline;">CANCEL</button>
+                                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Submit</button>
+                                </div>
+                            </div>
+
+                            <!-- Circles which indicates the steps of the form: -->
+                            <div style="text-align:center;margin-top:40px;">
+                                <span class="step finish"></span>
+                                <span class="step finish"></span>
+                                <span class="step finish"></span>
+                                <span class="step active"></span>
+                                <span class="step"></span>
+                            </div>
+                        </form>
+                    </center>
+                </div>
+                <!-- Products section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-road" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">Feedbacks</h2>
+
+                    </center>
+                </div>
+                <!-- Products section -->
+                <div class="bhoechie-tab-content">
+                    <center>
+                        <h1 class="glyphicon glyphicon-road" style="font-size:12em;color:#55518a"></h1>
+                        <h2 style="margin-top: 0;color:#55518a">New store</h2>
+                    </center>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body></html>

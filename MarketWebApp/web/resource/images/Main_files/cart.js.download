@@ -1,0 +1,47 @@
+
+class Location{
+    constructor() {
+        this.x = NaN;
+        this.y = NaN;
+    }
+
+    static calculateDistance(xLocation, yLocation, xxLocation, yyLocation){
+        var powX = Math.pow((xxLocation - xLocation), 2);
+        var powY = Math.pow((yyLocation - yLocation), 2);
+        return (Math.sqrt(powX + powY)).toFixed(2);
+    }
+
+}
+
+class JsonObj{
+    constructor() {
+        this.location = new Location();
+        this.idToQuantity = new Map();
+        this.zone = NaN;
+        this.date = NaN;
+        this.customer = NaN;
+        this.store = NaN;
+        this.dynamicOrder = true;
+    }
+
+    addItem(serial, quantity) {
+        if (this.idToQuantity.get(parseInt(serial)) === undefined) {
+            this.idToQuantity.set(parseInt(serial), quantity);
+        } else {
+            var totalQuantity = parseFloat(quantity) + parseFloat(this.idToQuantity.get(parseInt(serial)));
+            this.idToQuantity.set(parseInt(serial), totalQuantity);
+        }
+    }
+}
+
+class Sale{
+    constructor() {
+        this.sale = NaN;    //sale name;
+
+    }
+
+}
+
+class Sales{
+
+}

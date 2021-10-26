@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="#" />
+    <script src="resource/jquery-2.0.3.min.js"></script>
+    <link rel="stylesheet" href="resource/bootstrap.css">
+    <link rel="stylesheet" href="pages/login/login.css">
+    <script src="pages/login/login.js"></script>
+    <title>Login - SDMarket</title>
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+        <!-- Header -->
+            <div class="fadeIn first crop">
+                <img src="resource/images/sdm2.png" class="img-responsive" height="68" width="268">
+            </div>
+        <!-- Login Form -->
+            <form action="Login" id="loginForm">
+                <input type="text" id="username" class="fadeIn second" name="username" placeholder="Username">
+                <br/>
+                    <input type="radio" id="buyer" class="fadeIn third radio" name="customer" value="buyer">
+                    <label for="buyer">Buyer</label>
+                    <input type="radio" id="seller" class="fadeIn third radio" name="customer" value="seller" checked="checked">
+                    <label for="seller">Seller</label><br/>
+                <input type="submit" class="fadeIn fourth" value="Log In">
+            </form>
+        <!-- Error Massage -->
+            <div id="formFooter">
+                <p class="underlineHover" id="errorMassage" name="errorMassage"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
